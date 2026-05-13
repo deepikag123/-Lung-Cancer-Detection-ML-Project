@@ -1,0 +1,4 @@
+0 Normal_case
+1 Bengin_case
+2 Malignant_case
+3 Irrelevant_image

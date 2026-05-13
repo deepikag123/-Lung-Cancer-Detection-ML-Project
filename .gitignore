@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+venv/
+env/
+.env
+
+# Flask uploads (don't commit user-uploaded images)
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Model file (large binary - use Git LFS or store separately)
+# keras_model.h5
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log

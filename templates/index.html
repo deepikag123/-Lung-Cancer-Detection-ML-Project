@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Lung Cancer Detection</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+        .container {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            color: #fff;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #7ee8fa;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        .upload-area {
+            border: 2px dashed rgba(126,232,250,0.4);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+        .upload-area:hover { border-color: #7ee8fa; background: rgba(126,232,250,0.05); }
+        .upload-area input[type="file"] { display: none; }
+        .upload-area label {
+            cursor: pointer;
+            display: block;
+            font-size: 15px;
+            color: #ccc;
+        }
+        .upload-area label span {
+            display: block;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        .upload-area label strong { color: #7ee8fa; }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #7ee8fa, #80ff72);
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #0f2027;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .btn:hover { opacity: 0.85; }
+        .message { color: #f87; margin-bottom: 15px; text-align: center; }
+        .result-card {
+            margin-top: 30px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .result-card img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 14px;
+        }
+        .badge.normal    { background: #28a745; }
+        .badge.benign    { background: #ffc107; color: #000; }
+        .badge.malignant { background: #dc3545; }
+        .badge.irrelevant{ background: #6c757d; }
+        .result-card h3 { font-size: 18px; margin-bottom: 6px; color: #7ee8fa; }
+        .result-card p  { font-size: 14px; color: #ccc; line-height: 1.6; }
+        .confidence-bar {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            height: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7ee8fa, #80ff72);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🫁 Lung Cancer Detection</h1>
+    <p class="subtitle">Upload a lung scan image to get an AI-powered analysis</p>
+
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+            <input type="file" id="fileInput" name="file" accept="image/*"
+                   onchange="document.getElementById('fileName').innerText = this.files[0]?.name || 'No file chosen'"/>
+            <label>
+                <span>📤</span>
+                <strong>Click to Upload Image</strong>
+                <p id="fileName" style="margin-top:8px;font-size:13px;color:#aaa;">No file chosen</p>
+            </label>
+        </div>
+        <button type="submit" class="btn">🔍 Analyse Image</button>
+    </form>
+
+    {% if result %}
+    <div class="result-card">
+        {% if uploaded_image %}
+            <img src="/{{ uploaded_image }}" alt="Uploaded Scan"/>
+        {% endif %}
+
+        {% set badge_class = {
+            "Normal_case":    "normal",
+            "Bengin_case":    "benign",
+            "Malignant_case": "malignant",
+            "Irrelevant_image": "irrelevant"
+        }.get(result, "normal") %}
+
+        <span class="badge {{ badge_class }}">{{ result.replace('_', ' ') }}</span>
+
+        <h3>Confidence Score: {{ confidence }}%</h3>
+        <div class="confidence-bar">
+            <div class="confidence-fill" style="width: {{ confidence }}%"></div>
+        </div>
+
+        <p><strong>Recommendation:</strong> {{ prevention }}</p>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
