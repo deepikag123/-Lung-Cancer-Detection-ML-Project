@@ -1,7 +1,8 @@
-tensorflow==2.15.0
-keras
-numpy
-pandas
-matplotlib
-scikit-learn
-flask
+echo tensorflow==2.17.0 > requirements.txt
+echo keras >> requirements.txt
+echo numpy >> requirements.txt
+echo pandas >> requirements.txt
+echo matplotlib >> requirements.txt
+echo scikit-learn >> requirements.txt
+echo flask >> requirements.txt
+echo pillow >> requirements.txt

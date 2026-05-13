@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template
-import tf_keras
 from tf_keras.models import load_model
 from PIL import Image, ImageOps
 import numpy as np
