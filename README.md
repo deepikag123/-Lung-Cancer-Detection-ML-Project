@@ -75,6 +75,16 @@ http://127.0.0.1:5000
 
 ---
 
+## 📸 Screenshots
+
+### Home Page
+![Home](screenshots/homepage.png)
+
+### Result Page
+![Result](screenshots/result_malignant.png)
+
+---
+
 ## 🧠 Model Details
 
 | Property        | Value              |
