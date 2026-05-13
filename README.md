@@ -78,10 +78,12 @@ http://127.0.0.1:5000
 ## 📸 Screenshots
 
 ### Home Page
-![Home](screenshots/homepage.png)
+<img width="1920" height="1080" alt="imageuploaded" src="https://github.com/user-attachments/assets/865415b4-1777-47bd-9116-b6b24978e7f0" />
+
 
 ### Result Page
-![Result](screenshots/result_malignant.png)
+<img width="1920" height="1080" alt="results" src="https://github.com/user-attachments/assets/b89cdb75-d9c2-4401-abcd-0a5c94029274" />
+
 
 ---
 
